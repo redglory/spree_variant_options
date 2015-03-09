@@ -13,22 +13,22 @@ if (!Array.indexOf) Array.prototype.indexOf = function(obj) {
     }
   }
   return -1;
-}
+};
 
 if (!Array.find_matches) Array.find_matches = function(a) {
   var i, m = [];
   a = a.sort();
-  i = a.length
+  i = a.length;
   while(i--) {
     if (a[i - 1] == a[i]) {
       m.push(a[i]);
     }
   }
-  if (m.length == 0) {
+  if (m.length === 0) {
     return false;
   }
   return m;
-}
+};
 
 function VariantOptions(params) {
 
@@ -44,7 +44,7 @@ function VariantOptions(params) {
 
 
   function init() {
-    divs = $('#product-variants .variant-options');
+    divs = $('#inside-product-cart-form .variant-options');
     disable(divs.find('a.option-value').addClass('locked'));
     update();
     enable(parent.find('a.option-value'));
@@ -215,7 +215,8 @@ function VariantOptions(params) {
     parent.nextAll().each(function(index, element) {
       disable($(element).find('a.option-value').show().removeClass('in-stock out-of-stock').addClass('locked').unbind('click'));
       $(element).find('a.clear-button').hide();
-      $(element).find('h6 strong.selection').html('').removeClass('out-of-stock');
+      //$(element).find('h6 strong.selection').html('').removeClass('out-of-stock');
+      $(element).find('strong.selection').html('').removeClass('out-of-stock');
     });
     parent.find('strong.selection').html('').removeClass('out-of-stock');
     show_all_variant_images();
@@ -249,7 +250,8 @@ function VariantOptions(params) {
     var selected = divs.find('a.selected');
     selected.each(function(){
       $this = $(this)
-      var selection = $this.parents('.variant-options').find('h6 strong.selection')
+      //var selection = $this.parents('.variant-options').find('h6 strong.selection')
+      var selection = $this.parents('.variant-options').find('strong.selection')
       selection.html($this.attr('title'));
 
       if ($this.hasClass('out-of-stock'))

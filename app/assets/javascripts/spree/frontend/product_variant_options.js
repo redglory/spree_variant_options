@@ -1,32 +1,33 @@
 var show_variant_images = function(variants_ids) {
   if (typeof(variants_ids) == 'number') {
-    variants_ids = [variants_ids]
+    variants_ids = [variants_ids];
   }
 
-  $('li.vtmb').hide();
+  $('div.sp-thumbs a img.vtmb').parents().hide();
   $(variants_ids).each(function(index, variant_id){
-    $('li.tmb-' + variant_id).show();
+    $('div.sp-thumbs a img.vtmb tmb-' + variant_id).parent().show();
 
-    var currentThumb = $('.vtmb.selected');
+    var currentThumb = $('a.sp-current > img');
 
     // if currently selected thumb does not belong to current variant, nor to common images,
     // hide it and select the first available thumb instead.
     if(!currentThumb.hasClass('vtmb-' + variant_id)) {
       //var thumb = $($('ul.thumbnails li:visible').eq(0));
-      var thumb = $($("ul.thumbnails li.vtmb-" + variant_id + ":first").eq(0));
-      if (thumb.length == 0) {
-        thumb = $($('ul.thumbnails li:visible').eq(0));
+      var thumb = $($("div.sp-thumbs a img.vtmb-" + variant_id + ":first").eq(0));
+      if (thumb.length === 0) {
+        thumb = $($('div.sp-thumbs a img:visible').eq(0));
       }
-      var newImg = thumb.find('a').attr('href');
-      $('ul.thumbnails li').removeClass('selected');
-      thumb.addClass('selected');
-      $('#main-image img').attr('src', newImg);
-      $("#main-image").data('selectedThumb', newImg);
-      $("#main-image").data('selectedThumbId', thumb.attr('id'));
+      var newImg = thumb.parent().attr('href');
+      $('div.sp-thumbs a').removeClass('sp-current');
+      thumb.parent().addClass('sp-current');
+      $('.main-image .sp-large a').attr('href', newImg);
+      $('.main-image .sp-large a > img').attr('src', newImg);
+      $('.main-image').data('selectedThumb', newImg);
+      $('.main-image').data('selectedThumbId', thumb.attr('id'));
     }
   });
-}
+};
 
 var show_all_variant_images = function() {
-  $('li.vtmb').show();
-}
+  $('div.sp-thumbs a img.vtmb').show();
+};
