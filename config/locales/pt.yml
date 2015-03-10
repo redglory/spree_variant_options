@@ -1,0 +1,8 @@
+pt:
+  spree:
+    preview: Pré-visualização
+    attach: Anexar
+    detach_image: Remover Imagem
+    select_a: "%{name}: "
+    variant_options_select: Selecione uma opção
+    one_option_per_type_must_be_selected: Necessita seleccionar pelo menos uma opção por tipo
