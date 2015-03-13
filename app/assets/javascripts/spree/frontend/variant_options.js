@@ -42,7 +42,6 @@ function VariantOptions(params) {
   var selection = [];
   var buttons;
 
-
   function init() {
     divs = $('#inside-product-cart-form .variant-options');
     disable(divs.find('a.option-value').addClass('locked'));
@@ -66,7 +65,6 @@ function VariantOptions(params) {
     index = isNaN(i) ? index : i;
     parent = $(divs.get(index));
     buttons = parent.find('a.option-value');
-    buttons_li = parent.find('a.option-value').parent();
     parent.find('a.clear-button').hide();
   }
 
@@ -216,7 +214,7 @@ function VariantOptions(params) {
     parent.nextAll().each(function(index, element) {
       disable($(element).find('a.option-value').show().removeClass('in-stock out-of-stock').addClass('locked').unbind('click'));
       $(element).find('a.clear-button').hide();
-      $(element).find('strong.selection').html('').removeClass('out-of-stock');
+      $(element).find('h6 strong.selection').html('').removeClass('out-of-stock');
     });
     parent.find('strong.selection').html('').removeClass('out-of-stock');
     show_all_variant_images();
@@ -240,7 +238,7 @@ function VariantOptions(params) {
     var a = enable(a.addClass('selected'));
     parent.find('a.clear-button').css('display', 'inline-block');
     advance();
-    handle_selected();
+    //handle_selected();
 
     variants = find_variant();
     toggle(variants);
@@ -250,7 +248,7 @@ function VariantOptions(params) {
     var selected = divs.find('a.selected');
     selected.each(function(){
       $this = $(this);
-      var selection = $this.parents('.variant-options').find('strong.selection');
+      var selection = $this.parents('.variant-options').find('h6 strong.selection');
       selection.html($this.attr('title'));
 
       if ($this.hasClass('out-of-stock'))
