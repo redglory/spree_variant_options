@@ -168,6 +168,7 @@ function VariantOptions(params) {
       prices = $.unique(prices).sort(function(a, b) {
         return to_f(a) < to_f(b) ? -1 : 1;
       });
+      console.log(prices)
       if (prices.length == 1) {
         $('.product-price').html('<span class="price-standard">' + prices[0] + '</span>');
       } else {
