@@ -200,7 +200,8 @@ function VariantOptions(params) {
       }
 
       // first we need to check if there is only a master variant (no option values)
-      if (master){
+      var master_variant = $('#is_master_variant')
+      if (master_variant.val()){
         // we set our master variant
         variant = master
       } else {
