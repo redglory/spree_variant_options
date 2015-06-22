@@ -33,6 +33,7 @@ if (!Array.find_matches) Array.find_matches = function(a) {
 function VariantOptions(params) {
 
   var options = params['options'];
+  var master = params['master'];
   var i18n = params['i18n'];
   var allow_backorders = !params['track_inventory_levels'];
   var allow_select_outofstock = params['allow_select_outofstock'];
@@ -178,6 +179,7 @@ function VariantOptions(params) {
     }
   }
 
+  // toggle user variant selection (combined option_values)
   function toggle(variants) {
     if (variant) {
       $('#variant_id, form[data-form-type="variant"] input[name$="[variant_id]"]').val(variant.id);
@@ -197,13 +199,19 @@ function VariantOptions(params) {
         show_variant_images(variants_ids);
       }
 
-      $('#variant_id, form[data-form-type="variant"] input[name$="[variant_id]"]').val('');
-      $('#cart-form button[type=submit], form[data-form-type="variant"] button[type=submit]').attr('disabled', true).fadeTo(0, 0.5);
-      price = $('.product-price').addClass('unselected');
-      // Replace product price by "(select)" only when there are at least 1 variant not out-of-stock
-      variants = $("div.variant-options.index-0");
-      if (variants.find("a.option-value.out-of-stock").length != variants.find("a.option-value").length)
-        price.text(i18n.variant_options_select);
+      // first we need to check if there is only a master variant (no option values)
+      if (master){
+        // we set our master variant
+        variant = master
+      } else {
+        $('#variant_id, form[data-form-type="variant"] input[name$="[variant_id]"]').val('');
+        $('#cart-form button[type=submit], form[data-form-type="variant"] button[type=submit]').attr('disabled', true).fadeTo(0, 0.5);
+        price = $('.product-price').addClass('unselected');
+        // Replace product price by "(select)" only when there are at least 1 variant not out-of-stock
+        variants = $("div.variant-options.index-0");
+        if (variants.find("a.option-value.out-of-stock").length != variants.find("a.option-value").length)
+          price.text(i18n.variant_options_select);
+      }
     }
   }
 
