@@ -165,15 +165,31 @@ function VariantOptions(params) {
       return variant = variants[selection[0]];
     } else {
       var prices = [];
-      $.each(variants, function(key, value) { prices.push(value.price) });
+      var sale_prices = [];
+      $.each(variants, function(key, value) { 
+         prices.push(value.price);
+         sale_prices.push(value.sale_price)
+       });
       prices = $.unique(prices).sort(function(a, b) {
         return to_f(a) < to_f(b) ? -1 : 1;
       });
-      console.log(prices)
-      if (prices.length == 1) {
-        $('.product-price').html('<span class="price-standard">' + prices[0] + '</span>');
+      sale_prices = $.unique(sale_prices).sort(function(a, b) {
+        return to_f(a) < to_f(b) ? -1 : 1;
+      });
+      // product/variant on sale? display it's sale_price
+      if (sale_prices.length > 0) {
+        if (prices.length == 1) {
+          $('.product-price').html('<span class="price-sales" itemprop="sale_price">' + sale_prices[0] + '</span>' + '<span class="price-standard" itemprop="price">' + prices[0] + '</span>');
+        } else {
+          $('.product-price').html('<span class="price from">' + prices[0] + '</span> - <span class="price to">' + prices[prices.length - 1] + '</span>');
+        }
+      // product/variant not on sale
       } else {
-        $('.product-price').html('<span class="price from">' + prices[0] + '</span> - <span class="price to">' + prices[prices.length - 1] + '</span>');
+        if (prices.length == 1) {
+          $('.product-price').html('<span itemprop="price">' + prices[0] + '</span>');
+        } else {
+          $('.product-price').html('<span class="price from">' + prices[0] + '</span> - <span class="price to">' + prices[prices.length - 1] + '</span>');
+        }
       }
       return variants;
     }
@@ -183,7 +199,13 @@ function VariantOptions(params) {
   function toggle(variants) {
     if (variant) {
       $('#variant_id, form[data-form-type="variant"] input[name$="[variant_id]"]').val(variant.id);
-      $('.product-price').removeClass('unselected').text(variant.price);
+      $('.product-price').removeClass('unselected');
+      if (variant.on_sale) { // show sale and original prices
+        $('.product-price').html('<span class="price-sales" itemprop="sale_price">' + variant.sale_price + '</span>' + '<span class="price-standard" itemprop="price">' + variant.price + '</span>');
+      } else {
+        $('.product-price').html('<span itemprop="price">' + variant.price + '</span>');
+      }
+      //$('.product-price').removeClass('unselected').text(variant.price);
       if (variant.in_stock)
         $('#cart-form button[type=submit]').attr('disabled', false).fadeTo(100, 1);
       $('form[data-form-type="variant"] button[type=submit]').attr('disabled', false).fadeTo(100, 1);
