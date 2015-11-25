@@ -162,7 +162,9 @@ function VariantOptions(params) {
     var selected = divs.find('a.selected');
     var variants = get_variant_objects(selected.get(0).rel);
     if (selected.length == divs.length) {
-      return variant = variants[selection[0]];
+      variant = variants[selection[0]];
+      $('#product-price .price').html('<span class="price assumed">' + variant.price + '</span>');
+      return variant;
     } else {
       var prices = [];
       $.each(variants, function(key, value) { prices.push(value.price) });
@@ -202,8 +204,9 @@ function VariantOptions(params) {
       price = $('#product-price .price').addClass('unselected')
       // Replace product price by "(select)" only when there are at least 1 variant not out-of-stock
       variants = $("div.variant-options.index-0")
-      if (variants.find("a.option-value.out-of-stock").length != variants.find("a.option-value").length)
-        price.text(i18n.variant_options_select);
+
+      // if (variants.find("a.option-value.out-of-stock").length != variants.find("a.option-value").length)
+      //   price.text(i18n.variant_options_select);
     }
   }
 
