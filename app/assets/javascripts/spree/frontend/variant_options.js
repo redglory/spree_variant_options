@@ -162,7 +162,9 @@ function VariantOptions(params) {
     var selected = divs.find('a.selected');
     var variants = get_variant_objects(selected.get(0).rel);
     if (selected.length == divs.length) {
-      return variant = variants[selection[0]];
+      variant = variants[selection[0]];
+      $('#product-price .price').html('<span class="price assumed">' + variant.price + '</span>');
+      return variant;
     } else {
       var prices = [];
       $.each(variants, function(key, value) { prices.push(value.price) });
