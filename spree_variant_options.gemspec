@@ -16,19 +16,19 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "spree_variant_options"
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.files         = 'git ls-files'.split("\n")
+  s.test_files    = 'git ls-files -- {test,spec,features}/*'.split("\n")
+  s.executables   = 'git ls-files -- bin/*'.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
   # Runtime
-  s.add_dependency 'spree_core', '~> 3.1.0'
-  s.add_dependency 'spree_api', '~> 3.1.0'
-  s.add_dependency 'spree_frontend', '~> 3.1.0'
-  s.add_dependency 'spree_backend',  '~> 3.1.0'
+  s.add_dependency 'spree_core', '>= 3.1.0', '< 4.0'
+  s.add_dependency 'spree_api', '>= 3.1.0', '< 4.0'
+  s.add_dependency 'spree_frontend', '>= 3.1.0', '< 4.0'
+  s.add_dependency 'spree_backend',  '>= 3.1.0', '< 4.0'
 
   # Development
-  s.add_development_dependency 'spree_sample',     '~> 3.1.0'
+  s.add_development_dependency 'spree_sample',     '>= 3.1.0', '< 4.0'
   s.add_development_dependency 'dummier',          '~> 0.3'
   s.add_development_dependency 'shoulda',          '~> 3.5'
   s.add_development_dependency 'shoulda-context',  '~> 1.1.5'
