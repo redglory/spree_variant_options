@@ -1,5 +1,6 @@
 module SpreeVariantOptions
   class Engine < Rails::Engine
+    VariantConfiguration = Struct.new(:variant_preferences)
     isolate_namespace SpreeVariantOptions
     engine_name "spree_variant_options"
 
@@ -14,9 +15,7 @@ module SpreeVariantOptions
       Dir.glob(File.join(File.dirname(__FILE__), "../../app/models/spree/app_configuration/*.rb")) do |c|
         Rails.application.config.cache_classes ? require(c) : load(c)
       end
-      app.config.spree.add_class('variant_preferences')
-      app.config.spree.variant_preferences = SpreeVariantOptions::VariantConfiguration.new
-
+      app.config.spree.variant_preferences = VariantConfiguration.new
       SpreeVariantOptions::VariantConfig = app.config.spree.variant_preferences
     end
   end
